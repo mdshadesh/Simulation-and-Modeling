@@ -1,0 +1,149 @@
+# A No Ans
+
+print('Naimul Hasan Shadesh')
+print('CSE1903018059')
+print('18A')
+print("ÇSE424")
+print('Simulation and Modeling Lab')
+
+
+
+# B No Ans
+import numpy as np
+import pandas as pd
+
+data = pd.read_csv('My dataset.csv')
+
+
+
+
+# C No Ans
+print(data.head(3))
+
+
+
+# D No Ans
+data.shape
+
+
+
+# E No Ans
+data.isna().sum()
+
+data = data.fillna(data.mean())
+
+data
+
+
+
+# F No Ans
+import matplotlib.pyplot as plt
+
+plt.show()
+
+plt.scatter(data['age'], data[' has_facebook_account'])
+plt.xlabel('age')
+plt.ylabel(' has_facebook_account')
+plt.title('')
+plt.show()
+
+
+
+# G No Ans
+# create three age group filters
+age_group_0_14 = data[(data['age'] >= 0) & (data['age'] <= 14)]
+age_group_18_28 = data[(data['age'] >= 18) & (data['age'] <= 28)]
+age_group_30_plus = data[data['age'] >= 30]
+
+# calculate the percentage of users with a Facebook account in each age group
+fb_pct_0_14 = len(age_group_0_14[age_group_0_14[' has_facebook_account'] == 1]) / len(age_group_0_14) * 100
+fb_pct_18_28 = len(age_group_18_28[age_group_18_28[' has_facebook_account'] == 1]) / len(age_group_18_28) * 100
+fb_pct_30_plus = len(age_group_30_plus[age_group_30_plus[' has_facebook_account'] == 1]) / len(age_group_30_plus) * 100
+
+# print the results
+print("Percentage of Facebook users in age group 0-14  :", fb_pct_0_14)
+print("Percentage of Facebook users in age group 18-28 :", fb_pct_18_28)
+print("Percentage of Facebook users in age group 30+   :", fb_pct_30_plus)
+
+
+
+
+
+
+# H No Ans
+data = pd.DataFrame({
+    'age': [10, 20, 30, 40, 50],
+    'has_facebook_account': [True, True, False, True, False]
+})
+
+# Calculate the percentages
+age_group_0_14 = data[(data['age'] >= 0) & (data['age'] <= 14)]['has_facebook_account'].mean()
+age_group_18_28 = data[(data['age'] >= 18) & (data['age'] <= 28)]['has_facebook_account'].mean()
+age_group_30_plus = data[(data['age'] >= 30)]['has_facebook_account'].mean()
+
+facebook_percentages = [age_group_0_14, age_group_18_28, age_group_30_plus]
+
+# Create a pandas DataFrame with the results
+df = pd.DataFrame({
+    'Age Group': ['0 - 14', '18 - 28', '30+'],
+    'Facebook Users': facebook_percentages
+})
+
+# Create a pie chart
+plt.pie(df['Facebook Users'], labels=df['Age Group'], autopct='%1.1f%%')
+plt.title('Percentage of Facebook Users by Age Group')
+plt.show()
+
+
+
+
+
+# I No Ans
+
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+
+# Prepare the data for training
+X = data[['age']]
+y = data['has_facebook_account']
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Train the logistic regression model
+model = LogisticRegression()
+model.fit(X_train, y_train)
+
+# Make predictions on the testing set
+y_pred = model.predict(X_test)
+
+# Evaluate the accuracy of the model
+accuracy = accuracy_score(y_test, y_pred)
+print('Accuracy: {:.2f}%'.format(accuracy * 100))
+
+
+
+
+# J No Ans
+
+# Predict if a person with the age of 7, 29, and 79 has a Facebook account
+new_data = pd.DataFrame({'age': [7, 29, 79]})
+predictions = model.predict(new_data)
+
+print("Predictions:")
+for age, prediction in zip(new_data['age'], predictions):
+    if prediction == 1:
+        print(f"A person aged {age} is predicted to have a Facebook account")
+    else:
+        print(f"A person aged {age} is predicted to not have a Facebook account")
+
+
+
+
+
+# K No Ans
+accuracy = accuracy_score(y_test, y_pred)
+
+print("Accuracy:", accuracy)
+
